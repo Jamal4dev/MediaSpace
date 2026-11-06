@@ -1,0 +1,44 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}Video Gallery | MediaSpace{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <p class="eyebrow">WATCH AND DISCOVER</p>
+    <h1>Video Gallery</h1>
+    <p>Enjoy videos from our multimedia collection.</p>
+</section>
+
+<section class="media-section">
+    <div class="media-grid">
+
+        {% for item in media_items %}
+
+        <article class="media-card">
+
+            <video controls>
+                <source src="{{ item.file.url }}">
+                Your browser does not support video playback.
+            </video>
+
+            <div class="card-content">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <h3>No videos available</h3>
+            <p>Videos uploaded by the administrator will appear here.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

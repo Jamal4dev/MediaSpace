@@ -1,0 +1,46 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}Audio Library | MediaSpace{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <p class="eyebrow">LISTEN AND ENJOY</p>
+    <h1>Audio Library</h1>
+    <p>Listen to audio content from our collection.</p>
+</section>
+
+<section class="media-section">
+    <div class="media-grid">
+
+        {% for item in media_items %}
+
+        <article class="media-card audio-card">
+
+            <div class="audio-preview">♫</div>
+
+            <div class="card-content">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+
+                <audio controls>
+                    <source src="{{ item.file.url }}">
+                    Your browser does not support audio playback.
+                </audio>
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <h3>No audio available</h3>
+            <p>Audio uploaded by the administrator will appear here.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

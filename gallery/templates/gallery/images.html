@@ -1,0 +1,39 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}Image Gallery | MediaSpace{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <p class="eyebrow">VISUAL COLLECTION</p>
+    <h1>Image Gallery</h1>
+    <p>Discover our collection of images and photographs.</p>
+</section>
+
+<section class="media-section">
+    <div class="media-grid">
+
+        {% for item in media_items %}
+
+        <article class="media-card">
+            <img src="{{ item.file.url }}" alt="{{ item.title }}">
+
+            <div class="card-content">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+            </div>
+        </article>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <h3>No images available</h3>
+            <p>Images uploaded by the administrator will appear here.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

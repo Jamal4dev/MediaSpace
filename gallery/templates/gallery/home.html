@@ -1,0 +1,109 @@
+{% extends 'gallery/base.html' %}
+
+{% block title %}Home | MediaSpace{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="eyebrow">YOUR MULTIMEDIA DESTINATION</p>
+        <h1>Discover a World of <span>Multimedia</span></h1>
+        <p>
+            Explore beautiful images, watch exciting videos
+            and enjoy amazing audio content, all in one place.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="{% url 'images' %}" class="btn primary">Explore Gallery</a>
+            <a href="{% url 'videos' %}" class="btn secondary">Watch Videos</a>
+        </div>
+    </div>
+</section>
+
+<section class="media-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">EXPLORE OUR COLLECTION</p>
+            <h2>Latest Media</h2>
+        </div>
+    </div>
+
+    <div class="media-grid">
+
+        {% for item in media_items %}
+
+        <article class="media-card">
+
+            {% if item.media_type == 'image' %}
+
+                <img src="{{ item.file.url }}" alt="{{ item.title }}">
+
+            {% elif item.media_type == 'video' %}
+
+                <video controls>
+                    <source src="{{ item.file.url }}">
+                    Your browser does not support video playback.
+                </video>
+
+            {% elif item.media_type == 'audio' %}
+
+                <div class="audio-preview">♫</div>
+                <audio controls>
+                    <source src="{{ item.file.url }}">
+                    Your browser does not support audio playback.
+                </audio>
+
+            {% endif %}
+
+            <div class="card-content">
+                <span class="category">{{ item.get_media_type_display }}</span>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description|truncatewords:15 }}</p>
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <h3>No media available yet</h3>
+            <p>Our multimedia collection will appear here once content is uploaded.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">BROWSE BY CATEGORY</p>
+            <h2>Explore Media</h2>
+        </div>
+    </div>
+
+    <div class="category-grid">
+
+        <a href="{% url 'images' %}" class="category-card">
+            <span>▧</span>
+            <h3>Images</h3>
+            <p>Explore our image collection.</p>
+        </a>
+
+        <a href="{% url 'videos' %}" class="category-card">
+            <span>▷</span>
+            <h3>Videos</h3>
+            <p>Discover and watch videos.</p>
+        </a>
+
+        <a href="{% url 'audio' %}" class="category-card">
+            <span>♫</span>
+            <h3>Audio</h3>
+            <p>Listen to audio collections.</p>
+        </a>
+
+    </div>
+</section>
+
+{% endblock %}
